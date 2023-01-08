@@ -22,9 +22,11 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Counter App'),
     );
   }
 }
@@ -61,6 +63,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _decrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -74,6 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        elevation: 10,
+        shadowColor: Theme.of(context).shadowColor,
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -105,10 +120,25 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: _incrementCounter,
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+            ),
+            Expanded(child: Container()),
+            FloatingActionButton(
+              onPressed: _decrementCounter,
+              tooltip: 'Decrement',
+              child: const Icon(Icons.remove),
+            ),
+          ],
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
